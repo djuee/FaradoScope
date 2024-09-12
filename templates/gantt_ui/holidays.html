@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление ресурсов</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        #container {
+            margin-bottom: 20px;
+        }
+        select, input[type="date"], input[type="button"], input[type="submit"] {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        input[type="button"], input[type="submit"] {
+            background-color: #4CAF50; /* Зеленая кнопка */
+            color: white;
+            cursor: pointer;
+        }
+        input[type="button"]:hover, input[type="submit"]:hover {
+            background-color: #45a049; /* Темнее при наведении */
+        }
+        .remove-button {
+            background-color: transparent; /* Прозрачный фон */
+            border: none; /* Убираем границу */
+            color: red; /* Красный цвет */
+            font-size: 24px; /* Размер шрифта для креста */
+            cursor: pointer; /* Указатель при наведении */
+            position: relative;
+            padding: 0; /* Убираем отступы */
+        }
+        .remove-button:hover {
+            color: darkred; /* Темнее при наведении */
+        }
+    </style>
+    <script>
+        function addFields() {
+            var container = document.getElementById("container");
+
+            // Создаем контейнер для нового ресурса
+            var resourceContainer = document.createElement("div");
+
+            var selectResource = document.createElement("select");
+            selectResource.name = "resource";
+            
+            var resourceDictionary = JSON.parse('{{ resources | tojson | safe }}');
+            
+            for (var resourceId in resourceDictionary) {
+                var option = document.createElement("option");
+                option.value = resourceId;
+                option.text = resourceDictionary[resourceId];
+                selectResource.appendChild(option);
+            }
+            resourceContainer.appendChild(selectResource);
+
+            var inputStartDate = document.createElement("input");
+            inputStartDate.type = "date";
+            inputStartDate.name = "start_date"; 
+            resourceContainer.appendChild(inputStartDate);
+
+            var inputEndDate = document.createElement("input");
+            inputEndDate.type = "date";
+            inputEndDate.name = "end_date"; 
+            resourceContainer.appendChild(inputEndDate);
+
+            // Создаем кнопку для удаления в виде креста
+            var removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.innerHTML = "&times;"; // Символ креста
+            removeButton.className = "remove-button"; // Применяем класс для стиля
+            removeButton.onclick = function() {
+                container.removeChild(resourceContainer);
+            };
+            resourceContainer.appendChild(removeButton);
+
+            container.appendChild(resourceContainer);
+            container.appendChild(document.createElement("br"));
+        }
+    </script>
+</head>
+<body>
+    <h2>Добавьте отпуска/больничные для ресурсов:</h2>
+    <form method="post">
+        <div id="container"></div>
+        <input type="button" value="Добавить ресурс" onclick="addFields()">
+        <input type="submit" value="Далее">
+    </form>
+</body>
+</html>
