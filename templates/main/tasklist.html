@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ввод номеров задач</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%; 
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            margin-bottom: 10px; 
+            padding: 10px; 
+            border: 2px solid #6a11cb;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            padding: 12px 20px; 
+            font-size: 16px; 
+            margin-top: 10px; 
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2575fc;
+            transform: translateY(-2px);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        #modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8); 
+            justify-content: center;
+            align-items: center;
+        }
+
+        #modal-content {
+            background-color: rgba(255, 255, 255, 0.9); 
+            color: black; 
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s; 
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        #modal h2 {
+            margin: 0; 
+        }
+
+        .ellipsis {
+            display: inline-block;
+            font-size: 24px; 
+        }
+
+        .ellipsis::after {
+            content: '';
+            animation: ellipsisAnimation steps(4, end) infinite; 
+        }
+
+        @keyframes ellipsisAnimation {
+            from { content: '.'; }
+            25% { content: '..'; }
+            50% { content: '...'; }
+            75% { content: '..'; }
+            to { content: '.'; }
+        }
+    </style>
+    <script>
+        function showModal() {
+            var modal = document.getElementById("modal");
+            modal.style.display = "flex"; 
+        }
+
+        function hideModal() {
+            var modal = document.getElementById("modal");
+            modal.style.display = "none"; 
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Введите номера задач через пробел</h2>
+    <form method="post" onsubmit="showModal()">
+        <input type="text" name="taskNumbers" placeholder="Номера задач..." required>
+        <br>
+        <button type="submit">Далее</button>
+    </form>
+</div>
+
+<div id="modal">
+    <div id="modal-content">
+        <h2>Обрабатываю данные<span class="ellipsis"></span></h2>
+        <p>Пожалуйста, подождите...</p>
+    </div>
+</div>
+
+</body>
+</html>

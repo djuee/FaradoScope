@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeCalculator</title>
+    <link href="{{ url_for('static', filename='css/tabulator_modern.min.css') }}" rel="stylesheet"> 
+    <script src="{{ url_for('static', filename='js/tabulator.min.js') }}"></script>  
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="table"></div> 
+
+    <script>
+        var table = new Tabulator("#table", {   
+            height: "auto", 
+            selectableRange : 1 , 
+            selectableRangeColumns : true , 
+            selectableRangeRows : true , 
+            selectableRangeClearCells : true , 
+            clipboard : true , 
+            clipboardCopyConfig : { 
+                rowHeaders : true , 
+                columnHeaders : false , }, 
+            clipboardCopyRowRange : "range" , 
+            clipboardPasteParser : "range" , 
+            clipboardPasteAction : "range" , 
+            columnDefaults: {
+                headerFilter:"input", 
+                headerFilterLiveFilter: false,
+            },
+            rowHeader:{formatter:"rownum", headerSort:false, hozAlign:"center", resizable:false, frozen:true},
+            autoColumns: true, 
+            });
+
+        fetch('/allissues/ajax')
+        .then(response => response.json())
+        .then(data => {
+            table.setData(data.data); 
+        })
+        .catch(error => console.error('Ошибка:', error));
+    </script>
+
+</body>
+</html>

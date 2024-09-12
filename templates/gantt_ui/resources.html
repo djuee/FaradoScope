@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GanttUI</title>
+    <style>
+        body {
+            background-image: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="number"],
+        input[type="date"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        input[type="submit"] {
+            background-color: #2575fc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #6a11cb;
+        }
+    </style>
+    <script>
+        function validateNumberInput(inputId) {
+            let input = document.getElementById(inputId);
+            if (input.value.trim() === '' || isNaN(input.value)) {
+                alert('Пожалуйста, введите число в поле ' + inputId);
+                input.value = '';
+                return false; // Возвращаем false для предотвращения отправки формы
+            }
+            return true; // Возвращаем true для продолжения отправки формы
+        }
+    </script>
+</head>
+<body>
+    <form method="post" onsubmit="return validateNumberInput('sa') && validateNumberInput('di') && validateNumberInput('alg') && validateNumberInput('sys') && validateNumberInput('web') && validateNumberInput('test')">
+        <label for="sa">SA:</label>
+        <input type="number" id="sa" name="sa" min="1" required><br>
+
+        <label for="di">DI:</label>
+        <input type="number" id="di" name="di" min="1" required><br>
+
+        <label for="alg">ALG:</label>
+        <input type="number" id="alg" name="alg" min="1" required><br>
+
+        <label for="sys">SYS:</label>
+        <input type="number" id="sys" name="sys" min="1" required><br>
+
+        <label for="web">WEB:</label>
+        <input type="number" id="web" name="web" min="1" required><br>
+
+        <label for="test">TEST:</label>
+        <input type="number" id="test" name="test" min="1" required><br>
+
+        <label for="start_date">Дата начала:</label>
+        <input type="date" id="start_date" name="start_date" required><br>
+
+        <input type="submit" value="Далее">
+    </form>
+</body>
+</html>

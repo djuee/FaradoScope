@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            margin-right: 20px; /* Отступ между чекбоксами */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50; /* Зеленый цвет */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px; /* Отступ между кнопками */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Темнее зеленый при наведении */
+        }
+
+        .back-button {
+            background-color: #f44336; /* Красный цвет */
+        }
+
+        .back-button:hover {
+            background-color: #e53935; /* Темнее красный при наведении */
+        }
+    </style>
+    <script>
+        function openPages() {
+            const timeCalculatorChecked = document.getElementById('timecalculator').checked;
+            const ganttUiChecked = document.getElementById('ganttui').checked;
+            const checkerChecked = document.getElementById('checker').checked;
+
+            if (timeCalculatorChecked) {
+                window.open('/timecalculator', '_blank');
+            }
+            if (ganttUiChecked) {
+                window.open('/ganttui/resources', '_blank');
+            }
+            if (checkerChecked) {
+                window.open('/checker', '_blank');
+            }
+        }
+
+        function goBack() {
+            window.location.href = '/';
+        }
+    </script>
+</head>
+<body>
+    <h1>Выберите нужные вам инструменты:</h1>
+    <div class="checkbox-container">
+        <label>
+            <input type="checkbox" id="timecalculator"> Time Calculator
+        </label>
+        <label>
+            <input type="checkbox" id="ganttui"> Gantt UI
+        </label>
+        <label>
+            <input type="checkbox" id="checker"> Checker
+        </label>
+    </div>
+    <button onclick="openPages()">Открыть страницы</button>
+    <button class="back-button" onclick="goBack()">Вернуться назад</button>
+</body>
+</html>
