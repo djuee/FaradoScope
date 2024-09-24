@@ -89,6 +89,10 @@ class View():
         @self.app.route('/allissues/ajax', methods=['GET', 'POST'])
         def allissues_ajax():
             return json.dumps({"data": self.controller.all_issues_create()})
+        
+        @self.app.route("/checker/ajax", methods={'GET', 'POST'})
+        def checker_ajax():
+            return json.dumps({'data': self.controller.checker_data()})
 
     def run(self):
         self.app.run(port=self.controller.port)
